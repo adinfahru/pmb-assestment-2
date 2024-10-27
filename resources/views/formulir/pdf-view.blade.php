@@ -62,12 +62,44 @@
             grid-template-columns: repeat(40, 25px);
             gap: 2px;
         }
+
+        /* Gaya untuk menempatkan foto di tengah */
+        .photo-container {
+            display: flex;
+            justify-content: center;
+            /* Menempatkan foto di tengah secara horizontal */
+            flex-wrap: wrap;
+            /* Memungkinkan foto untuk membungkus jika terlalu banyak */
+            margin-bottom: 15px;
+            /* Menambahkan margin bawah */
+        }
+
+        .photo-container img {
+            width: 150px;
+            /* Ukuran foto */
+            height: auto;
+            /* Tinggi otomatis */
+            margin: 5px;
+            /* Margin antar foto */
+        }
     </style>
 </head>
 
 <body>
     <div class="form-container">
         <h1>Formulir Pendaftaran <br> Calon Mahasiswa Baru</h1>
+
+        <div class="form-group">
+            <div class="photo-container">
+                @if($fotos->isNotEmpty())
+                @foreach($fotos as $foto)
+                <img src="{{ public_path('storage/' . $foto->file_path) }}" alt="Foto Mahasiswa">
+                @endforeach
+                @else
+                <p>Tidak ada foto yang diunggah.</p>
+                @endif
+            </div>
+        </div>
 
         <div class="form-group">
             <label class="form-label">1. Nama Lengkap : {{ $formulir->nama_lengkap }}</label>
@@ -111,4 +143,5 @@
         </div>
     </div>
 </body>
+
 </html>

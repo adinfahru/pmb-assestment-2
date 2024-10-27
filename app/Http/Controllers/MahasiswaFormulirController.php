@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\FormulirMahasiswa; // Pastikan Anda membuat model ini jika belum ada
+use App\Models\Foto;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Laravolt\Indonesia\Models\Province;
 use Laravolt\Indonesia\Models\City;
@@ -154,6 +155,9 @@ class MahasiswaFormulirController extends Controller
     {
         $formulir = FormulirMahasiswa::findOrFail($id); // Find the formulir by ID
 
+        // Mengambil foto berdasarkan user_id
+        $fotos = Foto::where('user_id', $formulir->user_id)->get();
+
         // Ambil provinsi berdasarkan kode provinsi
         $province = Province::where('code', $formulir->provinsi)->first();
 
@@ -161,10 +165,11 @@ class MahasiswaFormulirController extends Controller
         $city = City::where('code', $formulir->kota_kabupaten)->first();
 
         // Muat view PDF dan kirimkan variabel yang diperlukan
-        $pdf = Pdf::loadView('formulir.pdf-view', compact('formulir', 'province', 'city'));
+        $pdf = Pdf::loadView('formulir.pdf-view', compact('formulir', 'province', 'city', 'fotos'));
 
         return $pdf->download('formulir_' . $formulir->nama_lengkap . '.pdf'); // Download the PDF
     }
+
 
 
     public function review($id)

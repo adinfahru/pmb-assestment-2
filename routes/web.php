@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminDashboardController;
@@ -8,6 +7,7 @@ use App\Http\Controllers\AdminUserController;
 use App\Http\Controllers\AdminFormulirController;
 use App\Http\Controllers\MahasiswaDashboardController;
 use App\Http\Controllers\MahasiswaFormulirController;
+use App\Http\Controllers\FotoController;
 
 
 Route::get('/', function () {
@@ -55,6 +55,14 @@ Route::middleware(['auth', 'role:mahasiswa'])->group(function () {
     Route::get('/formulir/print/{id}', [MahasiswaFormulirController::class, 'print'])->name('formulir.print');
     Route::get('formulir-mahasiswa/review/{id}', [MahasiswaFormulirController::class, 'review'])->name('formulir-mahasiswa.review');
     Route::get('/get-cities/{provinceCode}', [MahasiswaFormulirController::class, 'getCities']);
+
+    // Routes untuk Foto
+    Route::get('fotos', [FotoController::class, 'index'])->name('foto.index');
+    Route::get('fotos/create', [FotoController::class, 'create'])->name('foto.create');
+    Route::post('fotos', [FotoController::class, 'store'])->name('foto.store');
+    Route::get('fotos/{id}/edit', [FotoController::class, 'edit'])->name('foto.edit');
+    Route::put('fotos/{id}', [FotoController::class, 'update'])->name('foto.update');
+    Route::delete('fotos/{id}', [FotoController::class, 'destroy'])->name('foto.destroy');
 });
 
 
