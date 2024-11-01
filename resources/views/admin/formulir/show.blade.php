@@ -22,6 +22,11 @@
             </div>
 
             <div class="mb-4">
+                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <p class="mt-1 text-sm text-gray-900">{{ auth()->user()->email }}</p>
+            </div>
+
+            <div class="mb-4">
                 <label class="block text-sm font-medium text-gray-700">Alamat KTP:</label>
                 <p class="mt-1 text-sm text-gray-900">{{ $formulir->alamat_ktp }}</p>
             </div>

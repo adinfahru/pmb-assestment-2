@@ -45,7 +45,6 @@ class MahasiswaFormulirController extends Controller
             'kota_kabupaten' => 'required|string|max:255',
             'telepon' => 'required|numeric',
             'hp' => 'required|numeric',
-            'email' => 'required|email|max:255|unique:formulir_mahasiswa,email',
             'kewarganegaraan' => 'required|string|max:255',
             'tanggal_lahir' => 'required|date',
             'provinsi_lahir' => 'required|string|max:255',
@@ -64,8 +63,11 @@ class MahasiswaFormulirController extends Controller
         }
 
 
+        // Automatically set the email from the authenticated user
+        $user = auth()->user();
+
         FormulirMahasiswa::create([
-            'user_id' => auth()->id(),
+            'user_id' => $user->id,
             'nama_lengkap' => $request->nama_lengkap,
             'alamat_ktp' => $request->alamat_ktp,
             'alamat_saat_ini' => $request->alamat_saat_ini,
@@ -73,7 +75,7 @@ class MahasiswaFormulirController extends Controller
             'kota_kabupaten' => $request->kota_kabupaten,
             'telepon' => $request->telepon,
             'hp' => $request->hp,
-            'email' => $request->email,
+            'email' => $user->email, // Set the email automatically
             'kewarganegaraan' => $request->kewarganegaraan,
             'tanggal_lahir' => $request->tanggal_lahir,
             'provinsi_lahir' => $request->provinsi_lahir,

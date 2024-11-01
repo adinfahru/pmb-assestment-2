@@ -33,6 +33,11 @@
             </div>
 
             <div class="mb-4">
+                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                <input type="email" name="email" id="email" value="{{ auth()->user()->email }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" readonly>
+            </div>
+
+            <div class="mb-4">
                 <label for="alamat_ktp" class="block text-sm font-medium text-gray-700">Alamat KTP</label>
                 <input type="text" name="alamat_ktp" id="alamat_ktp" value="{{ old('alamat_ktp', $form->alamat_ktp) }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50" required>
                 @error('alamat_ktp')
